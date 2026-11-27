@@ -10,4 +10,6 @@
   <url><loc>https://rrr-topup.vercel.app/refund</loc><priority>0.5</priority></url>
   <url><loc>https://rrr-topup.vercel.app/login</loc><priority>0.5</priority></url>
   <url><loc>https://rrr-topup.vercel.app/register</loc><priority>0.5</priority></url>
+  <url><loc>https://rrr-topup.vercel.app/add-money</loc><priority>0.7</priority></url>
+  <url><loc>https://rrr-topup.vercel.app/referrals</loc><priority>0.6</priority></url>
 </urlset>
