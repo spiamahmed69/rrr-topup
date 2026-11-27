@@ -6,11 +6,11 @@ import { fmtBDT, GAMES } from '../data/products.js'
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 shrink-0">
-      <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#02B53D] to-[#028a2e] flex items-center justify-center font-extrabold text-white text-lg shadow-md shadow-green-200">RR</span>
-      <span className="leading-none">
-        <span className="block font-extrabold text-lg tracking-tight text-slate-900">RRR <span className="text-[#02B53D]">TopUp</span></span>
-        <span className="block text-[11px] text-slate-500">প্রিমিয়াম গেমিং টপ-আপ</span>
+    <Link to="/" className="flex items-center gap-2 shrink-0 min-w-0">
+      <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#02B53D] to-[#028a2e] flex items-center justify-center font-extrabold text-white text-base sm:text-lg shadow-md shadow-green-200 shrink-0">RR</span>
+      <span className="leading-none min-w-0">
+        <span className="block font-extrabold text-base sm:text-lg tracking-tight text-slate-900 truncate">RRR <span className="text-[#02B53D]">TopUp</span></span>
+        <span className="hidden sm:block text-[11px] text-slate-500">প্রিমিয়াম গেমিং টপ-আপ</span>
       </span>
     </Link>
   )
@@ -58,11 +58,11 @@ export function Header() {
             </>
           ) : (
             <>
-              <Link to="/register" className="hidden sm:inline-flex bg-white border border-slate-300 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm hover:border-[#02B53D] hover:text-[#028a2e]">Sign Up</Link>
-              <Link to="/login" className="inline-flex bg-[#02B53D] hover:bg-[#028a2e] text-white font-bold px-4 py-2 rounded-lg text-sm">Sign In</Link>
+              <Link to="/register" className="inline-flex bg-white border border-slate-300 text-slate-900 font-bold px-3 sm:px-4 py-2 rounded-lg text-sm hover:border-[#02B53D] hover:text-[#028a2e]">Sign Up</Link>
+              <Link to="/login" className="inline-flex bg-[#02B53D] hover:bg-[#028a2e] text-white font-bold px-3 sm:px-4 py-2 rounded-lg text-sm">Sign In</Link>
             </>
           )}
-          <button className="text-slate-900 p-2" onClick={() => setOpen(!open)} aria-label="মেনু">
+          <button className="hidden lg:block text-slate-900 p-2" onClick={() => setOpen(!open)} aria-label="মেনু">
             <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
         </div>
@@ -125,11 +125,53 @@ export function Footer() {
 
 export function FloatingSupport() {
   return (
-    <Link to="/contact" className="fixed bottom-5 right-5 z-50 group" aria-label="সাপোর্ট">
-      <span className="w-14 h-14 rounded-full bg-[#02B53D] text-white flex items-center justify-center shadow-lg shadow-green-600/40 group-hover:bg-[#028a2e]">
-        <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-3.2 5.2c-.3 0-.7.1-.9.4-.3.4-.7 1-.7 2s.5 1.9 1.3 2.9c.9 1.1 2 2.1 3.4 2.7 1 .5 1.8.6 2.4.4.6-.2 1-.9 1.2-1.6.1-.4 0-.7-.2-.9l-.5-.4c-.2-.2-.5-.3-.8-.1l-.7.5c-.3.2-.6.2-.9 0-.5-.3-1.6-1.3-2-1.8-.3-.4-.2-.7 0-.9l.5-.7c.2-.3.1-.6 0-.8l-.8-1.2c-.2-.3-.5-.5-.8-.5z" /></svg>
-      </span>
-    </Link>
+    <div className="fixed bottom-[92px] right-3 lg:bottom-5 lg:right-5 z-50 flex items-center gap-2" aria-label="সাপোর্ট">
+      <span className="lg:hidden bg-white text-slate-900 text-sm font-bold px-3.5 py-2 rounded-full shadow-lg border border-slate-200">Need Help?</span>
+      <Link to="/contact" className="group" aria-label="সাপোর্ট">
+        <span className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#02B53D] text-white flex items-center justify-center shadow-lg shadow-green-600/40 group-hover:bg-[#028a2e]">
+          <svg viewBox="0 0 24 24" className="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4zm-3.2 5.2c-.3 0-.7.1-.9.4-.3.4-.7 1-.7 2s.5 1.9 1.3 2.9c.9 1.1 2 2.1 3.4 2.7 1 .5 1.8.6 2.4.4.6-.2 1-.9 1.2-1.6.1-.4 0-.7-.2-.9l-.5-.4c-.2-.2-.5-.3-.8-.1l-.7.5c-.3.2-.6.2-.9 0-.5-.3-1.6-1.3-2-1.8-.3-.4-.2-.7 0-.9l.5-.7c.2-.3.1-.6 0-.8l-.8-1.2c-.2-.3-.5-.5-.8-.5z" /></svg>
+        </span>
+      </Link>
+    </div>
+  )
+}
+
+/* ---------- Mobile app bottom nav (like the reference mobile app) ----------
+   Fixed bottom bar, mobile only (hidden on desktop). Centre item is a raised
+   green "+" for Add Money. Active tab is green, inactive tabs are grey. */
+const MOBILE_NAV_ICONS = {
+  home: (<svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h14V9.5" /><path d="M9 21v-6h6v6" /></svg>),
+  orders: (<svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z" /><path d="m3.3 7 8.7 5 8.7-5" /><path d="M12 22V12" /></svg>),
+  gift: (<svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="8" width="18" height="4" /><path d="M12 8v13" /><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" /><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" /></svg>),
+  profile: (<svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" /></svg>),
+}
+
+export function MobileNav() {
+  const items = [
+    { to: '/', label: 'Home', icon: 'home', end: true },
+    { to: '/my-orders', label: 'Orders', icon: 'orders' },
+    { to: '/add-money', label: 'Add Money', center: true },
+    { to: '/referrals', label: 'Referrals', icon: 'gift' },
+    { to: '/profile', label: 'Profile', icon: 'profile' },
+  ]
+  return (
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-slate-200 shadow-[0_-4px_16px_rgba(15,35,20,0.08)]" aria-label="মোবাইল নেভিগেশন" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <div className="grid grid-cols-5 items-end">
+        {items.map((it) => it.center ? (
+          <Link key={it.to} to={it.to} className="flex flex-col items-center justify-end pb-1.5 -mt-5" aria-label="Add Money">
+            <span className="w-14 h-14 rounded-full bg-[#02B53D] text-white flex items-center justify-center shadow-lg shadow-green-600/40 border-4 border-[#F9F7F5]">
+              <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+            </span>
+            <span className="text-[11px] font-bold text-slate-700 mt-0.5">Add Money</span>
+          </Link>
+        ) : (
+          <NavLink key={it.to} to={it.to} end={it.end} className={({ isActive }) => `flex flex-col items-center gap-0.5 py-2 ${isActive ? 'text-[#02B53D]' : 'text-slate-500'}`}>
+            {MOBILE_NAV_ICONS[it.icon]}
+            <span className="text-[11px] font-bold">{it.label}</span>
+          </NavLink>
+        ))}
+      </div>
+    </nav>
   )
 }
 
@@ -149,7 +191,7 @@ export function PageHero({ badge, title, sub, chips = [], gold = false, children
     <section className={`landing-hero ${gold ? 'landing-hero-gold' : ''}`}>
       <div className="relative">
         {badge && <span className="eyebrow">{badge}</span>}
-        <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight text-white mt-3">{title}</h1>
+        <h1 className="text-[1.65rem] sm:text-4xl font-extrabold leading-tight text-white mt-3">{title}</h1>
         {sub && <p className="text-green-50 mt-3 text-base sm:text-lg max-w-2xl mx-auto">{sub}</p>}
         {chips.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mt-5">
@@ -178,7 +220,7 @@ export function SectionHeader({ title, sub, link, linkLabel, centre = false }) {
         <span className="section-head-bar" aria-hidden="true" />
         <h2>{title}</h2>
         <span className="section-head-rule" aria-hidden="true" />
-        {link && <Link to={link} className="text-sm font-bold text-[#028a2e] hover:underline shrink-0">{linkLabel} →</Link>}
+        {link && <Link to={link} className="hidden sm:inline-block text-sm font-bold text-[#028a2e] hover:underline shrink-0">{linkLabel} →</Link>}
       </div>
       {sub && <p className="text-sm text-slate-500 mt-1.5 pl-[18px]">{sub}</p>}
     </div>
@@ -508,7 +550,7 @@ const ICONS = {
 export function ProductArt({ product, size = 'md' }) {
   const icon = ICONS[product.icon] || ICONS.diamond
   return (
-    <div className={`bg-gradient-to-br ${product.gradient} flex flex-col items-center justify-center text-white relative overflow-hidden ${size === 'lg' ? 'h-52' : 'h-28'}`}>
+    <div className={`bg-gradient-to-br ${product.gradient} flex flex-col items-center justify-center text-white relative overflow-hidden ${size === 'lg' ? 'h-32 sm:h-52' : 'h-28'}`}>
       <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 30% 20%, white 0, transparent 40%), radial-gradient(circle at 75% 80%, white 0, transparent 35%)' }} />
       <span className="relative animate-floaty">{icon}</span>
       <span className="relative font-extrabold text-sm mt-1 drop-shadow">{product.qty}</span>
