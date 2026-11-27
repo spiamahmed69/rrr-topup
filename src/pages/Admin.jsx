@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { adminLogin, adminLogout, isAdminLoggedIn, DEMO_ADMIN } from '../lib/auth.jsx'
-import { getOrders, getProducts, saveProducts, getSettings, saveSettings, saveOrder, isDemoMode } from '../lib/store.js'
+import { getOrders, getProducts, saveProducts, getSettings, saveSettings, saveOrder, isDemoMode, getTopups, updateTopup } from '../lib/store.js'
 import { StatusBadge, fmtDate, DemoBanner, PageHero } from '../components/Layout.jsx'
 import { fmtBDT, GAMES } from '../data/products.js'
 
@@ -271,10 +271,38 @@ function Detail({ k, v }) {
 function PaymentsTab() {
   const [settings, setSettings] = useState(getSettings())
   const [msg, setMsg] = useState('')
+  const [topups, setTopups] = useState(() => getTopups())
   function save(e) {
     e.preventDefault(); saveSettings(settings); setMsg('পেমেন্ট সেটিংস সংরক্ষণ হয়েছে ✓')
   }
   return (
+    <div className="space-y-6">
+      {/* Wallet top-up requests from Add Money — verify TrxID before approving. */}
+      <div className="landing-card p-5">
+        <h3 className="font-bold text-slate-900 text-lg">ব্যালেন্স অনুরোধ ({topups.filter((t) => t.status === 'Pending').length}টি পেন্ডিং)</h3>
+        <p className="text-xs text-slate-500 mt-1">গ্রাহকের Add Money অনুরোধ — Transaction ID নিজে যাচাই না করে কখনো ভেরিফাই করবেন না। ভেরিফাই করলে টাকাটা গ্রাহকের ওয়ালেট ব্যালেন্সে যোগ হবে।</p>
+        {topups.length === 0 && <p className="text-sm text-slate-500 mt-3">কোনো ব্যালেন্স অনুরোধ আসেনি।</p>}
+        <div className="divide-y divide-slate-100 mt-3">
+          {topups.map((t) => (
+            <div key={t.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
+              <div>
+                <p className="font-bold text-slate-900">{t.id} <span className="text-slate-500 font-normal">· {t.method === 'bkash' ? 'bKash' : 'Nagad'} · TrxID {t.trxid}</span></p>
+                <p className="text-xs text-slate-500">{t.mobile} · {fmtDate(t.createdAt)}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <p className="font-bold text-slate-900">{fmtBDT(t.amount)}</p>
+                <StatusBadge status={t.status === 'Verified' ? 'Verified' : t.status === 'Rejected' ? 'Rejected' : 'Pending Verification'} />
+                {t.status === 'Pending' && (
+                  <>
+                    <button onClick={() => setTopups(getTopups().map((x) => x.id === t.id ? updateTopup(t.id, { status: 'Verified' }) : x))} className="btn-primary !py-1.5 !px-3 text-sm">✓ ভেরিফাই</button>
+                    <button onClick={() => setTopups(getTopups().map((x) => x.id === t.id ? updateTopup(t.id, { status: 'Rejected' }) : x))} className="btn-ghost !py-1.5 !px-3 text-sm">বাতিল</button>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     <form onSubmit={save} className="space-y-4 max-w-2xl">
       {msg && <p className="text-emerald-600 text-sm font-semibold">{msg}</p>}
       {Object.entries(settings.payments).map(([key, m]) => (
@@ -291,6 +319,7 @@ function PaymentsTab() {
       <button className="btn-primary">পেমেন্ট সেটিংস সংরক্ষণ করুন</button>
       <p className="text-xs text-slate-500">আসল bKash/Nagad নম্বর এখানে বসান — নম্বর ছাড়া গ্রাহক পেমেন্ট করতে পারবে না।</p>
     </form>
+    </div>
   )
 }
 

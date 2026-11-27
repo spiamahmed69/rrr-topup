@@ -20,10 +20,10 @@ function SpecialItemCard({ product }) {
         <ProductArt product={product} size="lg" />
         {pill && <span className={`absolute top-2 right-2 text-[11px] font-bold px-2 py-0.5 rounded-full ${pill.cls}`}>{pill.label}</span>}
       </div>
-      <div className="px-3 py-3 text-center border-b-2 border-[#028a2e]">
-        <p className="font-extrabold text-slate-900 uppercase text-sm tracking-wide leading-tight">{product.name}</p>
-        <p className="text-xs text-slate-500 mt-0.5">{product.qty}</p>
-        <p className="font-extrabold text-slate-900 mt-1">{fmtBDT(product.price)}</p>
+      <div className="px-2 sm:px-3 py-2.5 sm:py-3 text-center border-b-2 border-[#028a2e]">
+        <p className="font-extrabold text-slate-900 uppercase text-[11px] sm:text-sm tracking-wide leading-tight">{product.name}</p>
+        <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">{product.qty}</p>
+        <p className="font-extrabold text-slate-900 mt-1 text-sm sm:text-base">{fmtBDT(product.price)}</p>
       </div>
     </Link>
   )
@@ -84,17 +84,17 @@ export default function Home() {
         <p className="text-sm font-semibold text-slate-800">{s.offerBanner}</p>
       </div>
 
-      {/* 3. Special Item — 3 featured cards, left-aligned */}
+      {/* 3. Special Item — 3 featured cards, 3-column on mobile like the reference */}
       <section className="mt-10">
-        <SectionHeader title="Special Item" sub="আজকের সেরা অফার" link="/free-fire" linkLabel="সব প্যাকেজ দেখুন" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 mt-5">
+        <SectionHeader title="Special Item 🎁" sub="আজকের সেরা অফার" link="/free-fire" linkLabel="সব প্যাকেজ দেখুন" />
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-5">
           {special.map((p) => <SpecialItemCard key={p.id} product={p} />)}
         </div>
       </section>
 
       {/* 4. Free Fire Item — 6-column grid of 8 categories */}
       <section className="mt-10">
-        <SectionHeader title="Free Fire Item" sub="UID দিয়ে টপ আপ — ক্যাটাগরি বেছে নিন" link="/free-fire" linkLabel="সব প্যাকেজ দেখুন" />
+        <SectionHeader title="Free Fire Item 🎮" sub="UID দিয়ে টপ আপ — ক্যাটাগরি বেছে নিন" link="/free-fire" linkLabel="সব প্যাকেজ দেখুন" />
         <div className="mt-5"><CategoryTileGrid game="ff" /></div>
       </section>
 

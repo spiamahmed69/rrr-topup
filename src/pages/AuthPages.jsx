@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth.jsx'
-import { getOrders } from '../lib/store.js'
+import { getOrders, getWalletBalance } from '../lib/store.js'
 import { StatusBadge, fmtDate, DemoBanner, PageHero, TrustStrip } from '../components/Layout.jsx'
 import { fmtBDT } from '../data/products.js'
 
@@ -157,7 +157,15 @@ export function Profile() {
           </div>
           <div className="flex flex-wrap gap-3 pt-2">
             <Link to="/my-orders" className="btn-primary">আমার অর্ডার দেখুন</Link>
+            <Link to="/add-money" className="btn-ghost">টাকা যোগ করুন</Link>
             <button onClick={() => { logout(); nav('/') }} className="btn-ghost">লগআউট</button>
+          </div>
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="font-bold text-slate-900">ওয়ালেট ব্যালেন্স</p>
+              <p className="text-xs text-slate-500">অ্যাডমিন-ভেরিফাইড টপ-আপের মোট — এই ব্রাউজারে সংরক্ষিত।</p>
+            </div>
+            <p className="text-2xl font-extrabold text-[#028a2e]">{getWalletBalance(user.email)}৳</p>
           </div>
           <p className="text-xs text-slate-500">অ্যাকাউন্টের নিরাপত্তা: আপনার পাসওয়ার্ড কখনো কারো সাথে শেয়ার করবেন না। RRR TopUp কখনো আপনার গেম অ্যাকাউন্টের পাসওয়ার্ড চায় না।</p>
         </div>
