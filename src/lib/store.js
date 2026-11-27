@@ -11,6 +11,8 @@ const LS = {
   settings: 'rrrtopup_settings',
   session: 'rrrtopup_session',
   adminSession: 'rrrtopup_admin_session',
+  topups: 'rrrtopup_topups',
+  referral: 'rrrtopup_referral_code',
 }
 
 export const DEFAULT_SETTINGS = {
@@ -82,6 +84,51 @@ export function saveOrder(order) {
 
 export function makeOrderId() {
   return 'RRR-' + Math.floor(100000 + Math.random() * 900000)
+}
+
+/* ---------- Wallet top-up requests (Add Money) ---------- */
+/* A request is real data: amount + method + sender mobile + TrxID, saved locally
+   (or Firestore when configured). Admin verifies it in the Payments tab; only
+   Verified requests count toward the wallet balance. No fake balance is ever shown. */
+export function getTopups() {
+  const local = readLS(LS.topups, [])
+  return [...local].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+}
+export function makeTopupId() {
+  return 'RRR-TOP-' + Math.floor(100000 + Math.random() * 900000)
+}
+export function saveTopup(req) {
+  const list = readLS(LS.topups, [])
+  const i = list.findIndex((t) => t.id === req.id)
+  if (i >= 0) list[i] = req; else list.unshift(req)
+  writeLS(LS.topups, list)
+  return req
+}
+export function updateTopup(id, patch) {
+  const list = readLS(LS.topups, [])
+  const i = list.findIndex((t) => t.id === id)
+  if (i < 0) return null
+  list[i] = { ...list[i], ...patch }
+  writeLS(LS.topups, list)
+  return list[i]
+}
+/* Wallet balance = sum of Verified top-ups for this owner (email or mobile). */
+export function getWalletBalance(ownerKey) {
+  if (!ownerKey) return 0
+  return getTopups()
+    .filter((t) => t.status === 'Verified' && (t.ownerKey === ownerKey || t.mobile === ownerKey))
+    .reduce((s, t) => s + (t.amount || 0), 0)
+}
+
+/* ---------- Referral code (per browser, persisted) ---------- */
+export function getReferralCode() {
+  let code = null
+  try { code = localStorage.getItem(LS.referral) } catch { /* ignore */ }
+  if (!code) {
+    code = 'RRR' + Math.random().toString(36).slice(2, 8).toUpperCase()
+    try { localStorage.setItem(LS.referral, code) } catch { /* ignore */ }
+  }
+  return code
 }
 
 export async function fetchRemoteOrders() {
